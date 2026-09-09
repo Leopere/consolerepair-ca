@@ -21,7 +21,7 @@ CONTACT_EMBED_SOURCE = SOURCE / "contact-embed"
 CONTACT_FALLBACK_SOURCE = SOURCE / "js/contact-form.min.js"
 LOCALE_ORDER = ("en", "fr", "es", "vi", "ar", "ja")
 HREFLANG = {"en": "en-CA", "fr": "fr-CA", "es": "es-419", "vi": "vi-VN", "ar": "ar", "ja": "ja-JP"}
-LEGAL_REVIEWED_DATE = "2026-09-08"
+LEGAL_REVIEWED_DATE = "2026-09-09"
 
 content_spec = importlib.util.spec_from_file_location("console_site_content", SOURCE / "content.py")
 if content_spec is None or content_spec.loader is None:
@@ -191,7 +191,7 @@ def render_index(locale: str) -> str:
   <div class="language-notice"><div class="shell"><span>{esc(c['notice'])}</span><nav class="languages" aria-label="{esc(ui['languages'])}">{language_links(locale)}</nav></div></div>
   <section class="section" id="faults"><div class="shell"><div class="section-heading"><p class="eyebrow">01 / {esc(c['nav_faults'])}</p><h2>{esc(c['faults_title'])}</h2><p>{esc(c['faults_intro'])}</p></div><div class="fault-grid">{fault_cards}</div></div></section>
   <section class="section section-dark"><div class="shell split"><div><p class="eyebrow">02 / {esc(c['scope_title'])}</p><h2>{esc(c['scope_title'])}</h2><p>{esc(c['scope_body'])}</p><ul class="check-list">{list_items(c['scope_items'])}</ul></div><div class="limit-card"><h3>{esc(c['limits_title'])}</h3><ul>{list_items(c['limits_items'])}</ul></div></div></section>
-  <section class="section" id="process"><div class="shell"><div class="section-heading"><p class="eyebrow">03 / {esc(c['nav_process'])}</p><h2>{esc(c['process_title'])}</h2></div><ol class="steps">{steps}</ol></div></section>
+  <section class="section" id="process"><div class="shell"><div class="section-heading"><p class="eyebrow">03 / {esc(c['nav_process'])}</p><h2>{esc(c['process_title'])}</h2><p>{esc(c['quote_policy'])}</p></div><ol class="steps">{steps}</ol></div></section>
   <section class="section verification" id="rethermals"><div class="shell split"><div><p class="eyebrow">04 / {esc(c['nav_check'])}</p><h2>{esc(c['check_title'])}</h2><p>{esc(c['check_body'])}</p><ul class="check-list">{list_items(c['check_items'])}</ul></div><div class="price-card"><span>{esc(c['check_price'])}</span><small>{esc(c['check_note'])}</small><a class="button" href="#contact">{esc(c['nav_check'])}</a></div></div></section>
   <section class="section contact-section" id="contact"><div class="shell contact-grid"><div><p class="eyebrow">05 / {esc(c['nav_contact'])}</p><h2>{esc(c['contact_title'])}</h2><p>{esc(c['contact_intro'])}</p><div class="reply-card"><h3>{esc(c['reply_title'])}</h3><p>{esc(c['reply_body'])}</p></div></div>
     <form id="repair-form" class="repair-form" novalidate data-sending="{esc(c['sending'])}" data-success="{esc(c['success'])}" data-error="{esc(c['error'])}">
@@ -253,6 +253,7 @@ def render_legal(kind: str) -> str:
         <h2>Rush service</h2><p>Rush service is optional and costs an additional $130.</p>
         <h2>Repair assessment, diagnostic and quote</h2><p>The free intake assessment is only used to decide whether MRC will accept the job. It is not the repair diagnostic. After an accepted console arrives, MRC performs a proper diagnostic and provides a quote before any repair work begins. Repair work starts only after the customer approves that quote. Only the scope, price and other job-specific details MRC actually provides for that job apply.</p>
         """
+        body += f"<h2>Quote changes and stopping work</h2><p>{esc(LOCALES['en']['quote_policy'])}</p>"
     prefix = "../"
     canonical = f"{DOMAIN}/{kind}/"
     return f"""<!DOCTYPE html><html lang="en-CA"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="{description}"><meta name="robots" content="index,follow"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self' 'wasm-unsafe-eval' {NOTOMO_ORIGIN}/n.js {NOTOMO_ORIGIN}/n-rrweb.js; connect-src {NOTOMO_ORIGIN}/collect {NOTOMO_ORIGIN}/replay {NOTOMO_ORIGIN}/n-config/{NOTOMO_SITE_ID}; object-src 'none'; base-uri 'self'"><title>{title} | Console Repair Canada</title><link rel="canonical" href="{canonical}"><link rel="stylesheet" href="{prefix}assets/style.css"><link rel="icon" href="{prefix}assets/favicon.svg" type="image/svg+xml">{notomo_script()}{contact_scripts()}</head><body data-locale="en" data-default-country="CA">{header(LOCALES['en'], 'en', asset_prefix=prefix, anchor_prefix='/')}<main id="main"><section class="legal"><div class="shell legal-copy"><p class="eyebrow">MRC · Updated {LEGAL_REVIEWED_DATE}</p><h1>{title}</h1><p class="lede">{description}</p>{body}<p><a class="button" href="/#contact">Start a repair</a></p></div></section></main>{footer(LOCALES['en'], 'en', asset_prefix=prefix)}</body></html>"""

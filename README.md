@@ -49,6 +49,8 @@ DNS is managed separately in Cloudflare. Apex and `www` must not move until the 
 
 ## Service and privacy posture
 
+If a quote rises more than 10% above the original quote, MRC pauses and gets the customer's approval before further work. Customers can stop a repair at any time and remain responsible for costs incurred up to that point.
+
 Service content deliberately avoids outcome guarantees. A form submission starts a free intake assessment that determines whether MRC will accept the job; it is not the repair diagnostic. Customers are told not to ship until instructed. After an accepted console arrives, MRC performs a proper diagnostic and provides a quote before any repair work begins. Canada is the main market; international mail-in requests collect the return country and require ownership and cross-border-cost acknowledgements before submission. Cleaning and thermals start at $90 plus tax on an accepted supported console. Extra work, parts, shipping and tax are quoted separately. International clients are billed in USD. The site does not quote prices in CAD. This service is not a repair diagnostic and does not promise lower temperatures, quieter fans or a resolved fault.
 
 The site uses the dedicated `consolerepair.ca` property in MRC's self-hosted Notomo service for pageview analytics, browser errors and full session replay. Notomo records page contents, interactions and literal text entered into form fields as it is typed. Cloudflare is authoritative DNS only and does not proxy page requests. Contact requests are sent to MRC's form service at `forms.motherboardrepair.ca`.

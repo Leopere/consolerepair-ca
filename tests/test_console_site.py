@@ -297,7 +297,7 @@ def validate_site() -> None:
         legal_parser, legal_source = parse(SITE / legal_kind / "index.html")
         legal_canonical = [attrs.get("href") for name, attrs in legal_parser.tags if name == "link" and attrs.get("rel") == "canonical"]
         assert legal_canonical == [f"https://consolerepair.ca/{legal_kind}/"]
-        assert "MRC · Updated 2026-09-08" in legal_source
+        assert "MRC · Updated 2026-09-09" in legal_source
         assert f'href="/{legal_kind}/"' in legal_source
         assert 'href="../assets/style.css"' in legal_source
         assert 'src="../assets/mrc-logo-white.svg"' in legal_source

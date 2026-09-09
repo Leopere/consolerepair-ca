@@ -171,9 +171,9 @@ def validate_site() -> None:
 
     english = (SITE / "index.html").read_text(encoding="utf-8").lower()
     assert "mrc console repair for playstation, xbox and nintendo switch" in english
-    assert "console repair diagnosis and quote before work begins" in english
-    assert "the intake assessment determines acceptance; it is not the repair diagnostic" in english
-    assert "after the accepted console arrives, we perform a proper diagnostic and provide a quote" in english
+    assert "console repair starts with a diagnosis and quote" in english
+    assert "we review your request for free. diagnosing the console is a separate step" in english
+    assert "once your console arrives, we diagnose it and give you a quote" in english
     assert "no repair work begins without your approval" in english
     assert "displayed phone format" in english
     assert "detected country" not in english
@@ -188,7 +188,7 @@ def validate_site() -> None:
     assert "nvidia · amd · intel" not in english
     assert "playstation · xbox · switch</small>" in english
     assert "country where the console is located and will be returned" in english
-    assert "i&#x27;ve been provided the time to review, and i accept, the" in english
+    assert "i’ve had time to review, and i accept the" in english
     assert "send protected request" not in english
     assert "protected by a time delay" not in english
     assert "international mail-in details" in english
@@ -204,11 +204,11 @@ def validate_site() -> None:
         assert stale_claim not in public_copy
 
     locale_workflow_markers = {
-        "fr": ("évaluation du dossier sert à décider de l’acceptation", "diagnostic complet et fournissons un devis"),
-        "es": ("evaluación de admisión decide la aceptación", "diagnóstico completo y damos un presupuesto"),
-        "vi": ("đánh giá tiếp nhận chỉ quyết định có nhận việc", "chẩn đoán đầy đủ và báo giá"),
-        "ar": ("تقييم القبول يحدد قبول العمل فقط", "تشخيصاً كاملاً ونقدم عرض سعر"),
-        "ja": ("受付評価は受入れ可否を決める", "正式な診断を行い、修理作業を始める前に見積り"),
+        "fr": ("nous examinons gratuitement votre demande", "aucune réparation ne commence sans votre accord"),
+        "es": ("revisamos su solicitud gratis", "no comenzamos ninguna reparación sin su aprobación"),
+        "vi": ("chúng tôi xem xét miễn phí yêu cầu", "chưa có sự đồng ý của bạn thì chúng tôi chưa bắt đầu sửa"),
+        "ar": ("نراجع طلبك مجاناً", "لا يبدأ الإصلاح من دون موافقتك"),
+        "ja": ("依頼内容の確認は無料です", "承認なしに修理を始めることはありません"),
     }
     for locale, markers in locale_workflow_markers.items():
         localized = (SITE / locale / "index.html").read_text(encoding="utf-8").lower()
@@ -314,8 +314,8 @@ def validate_site() -> None:
     assert "canada is our main market" in terms
     assert "international mail-in service is available only for jobs mrc accepts" in terms
     assert "shipping, customs, duties, taxes, brokerage, insurance and return costs" in terms
-    assert "the free intake assessment is only used to decide whether mrc will accept the job" in terms
-    assert "after an accepted console arrives, mrc performs a proper diagnostic and provides a quote before any repair work begins" in terms
+    assert "we review your request for free to decide whether we can take the job" in terms
+    assert "once a console we have agreed to work on arrives, we diagnose it and give you a quote" in terms
 
     not_found = (SITE / "404.html").read_text(encoding="utf-8")
     assert "Page not found" in not_found
@@ -336,7 +336,7 @@ def validate_site() -> None:
     for disclosure in (
         "self-hosted notomo", "random visitor and session identifiers", "session replay",
         "literal text entered into website fields as you type", "before you submit the form",
-        "cloudflare", "github", "selected intake method",
+        "cloudflare", "github", "drop-off or mail-in choice",
         "phone validation profile", "page language", "local storage",
         "selected text-message reply language",
         "return country", "province, state or region", "ownership or owner-authorization confirmation",

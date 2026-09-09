@@ -101,7 +101,7 @@ def validate_site() -> None:
         assert 'form_id" value="console_repair_quote"' in source
         for field_name in (
             "name", "email", "phone", "model",
-            "request_type", "message", "service_type", "mailing_address",
+            "rush_service", "message", "service_type", "mailing_address",
             "unit_number", "return_country", "province", "ownership_confirmed",
             "international_shipping_ack", "accept_terms",
         ):
@@ -110,8 +110,13 @@ def validate_site() -> None:
         assert "device_serial" not in source
         assert "battery_status" not in source
         assert "imei" not in source.lower()
-        assert 'option value="In-Person"' in source
-        assert 'option value="Mail-In"' in source
+        assert 'name="request_type"' not in source
+        delivery_select = re.search(r'<select name="service_type"[^>]*>(.*?)</select>', source, re.DOTALL)
+        assert delivery_select
+        assert re.findall(r'<option value="([^"]+)"', delivery_select.group(1)) == ["In-Person", "Mail-In"]
+        rush = [attrs for name, attrs in parser.tags if name == "input" and attrs.get("name") == "rush_service"]
+        assert len(rush) == 1 and rush[0].get("type") == "checkbox"
+        assert not {"checked", "required", "disabled"} & rush[0].keys()
         assert 'id="mailing-fields"' in source and " hidden" in source
         assert 'id="international-mailing-fields"' in source
         assert 'name="return_country" id="return_country"' in source
@@ -237,7 +242,7 @@ def validate_site() -> None:
     assert "console.error('Form submission failed:', error)" in js
     for intake_contract in (
         "setupMailingFields", "setupPhone", "address.required = mailIn",
-        "request_type", "mailing_address", "unit_number", "buildLeadPayload", "submitLeadPayload",
+        "rush_service", "mailing_address", "unit_number", "buildLeadPayload", "submitLeadPayload",
         "normalizeSiteLanguage", "digits.startsWith('1') ? 'CA'", "phoneSetup.profile()",
         "english_support_preference", "replyPreference ? replyPreference.value : undefined",
         "returnCountry.required = mailIn", "returnCountry.disabled = !mailIn",
@@ -301,6 +306,7 @@ def validate_site() -> None:
 
     terms = (SITE / "terms" / "index.html").read_text(encoding="utf-8").lower()
     assert "cleaning and thermals" in terms
+    assert "rush service is optional and costs an additional $130" in terms
     assert "is not a repair diagnostic" in terms
     assert "international clients are billed in usd" in terms
     assert "console certification" not in terms

@@ -23,6 +23,8 @@ The checks prove:
 - self-hosted Notomo pageview analytics and full session replay, including literal form-field recording;
 - a production artifact with no laptop-GPU or phone-repair claims.
 
+The repair form offers drop-off or mail-in, with an optional rush service for an additional $130. Customers describe the work they need in the message field. The request records the delivery method and rush choice; the rush fee is included only when selected.
+
 Run the project-specific static-site policy with the local SST installation:
 
 ```bash

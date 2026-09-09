@@ -93,13 +93,16 @@ def test_wasm_submission_contract() -> None:
             page.locator('[name="name"]').fill("WASM Browser Contract")
             page.locator('[name="email"]').fill("production-acceptance@example.com")
             page.locator('[name="phone"]').fill("+1 226-555-0100")
-            page.locator('[name="model"]').fill("Test RTX 3080")
-            page.locator('[name="request_type"]').select_option("repair")
+            page.locator('[name="model"]').fill("PlayStation 5")
+            assert page.locator('[name="request_type"]').count() == 0
             page.locator('[name="message"]').fill("Intercepted browser contract; no production lead is created.")
             page.locator('[name="service_type"]').select_option("In-Person")
+            assert not page.locator('[name="rush_service"]').is_checked()
+            page.locator('[name="rush_service"]').check()
             page.locator('[name="accept_terms"]').check()
             page.locator('#repair-form button[type="submit"]').click()
             page.locator("#form-status.success").wait_for(state="visible")
+            assert not page.locator('[name="rush_service"]').is_checked()
             browser.close()
     finally:
         server.shutdown()
@@ -108,7 +111,12 @@ def test_wasm_submission_contract() -> None:
 
     assert wasm_requested
     assert payload["form_id"] == "console_repair_quote"
-    assert payload["extra_fields"]["console_model"] == "Test RTX 3080"
+    assert payload["message"] == "Intercepted browser contract; no production lead is created."
+    assert payload["extra_fields"]["console_model"] == "PlayStation 5"
+    assert payload["extra_fields"]["service_type"] == "In-Person"
+    assert payload["extra_fields"]["rush_service"] is True
+    assert payload["extra_fields"]["rush_fee"] == 130
+    assert "request_type" not in payload["extra_fields"]
     assert "form_proof_token" in payload
     assert "form_proof_counter" in payload
 

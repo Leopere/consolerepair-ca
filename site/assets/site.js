@@ -169,8 +169,8 @@
   function buildLeadPayload(form, phoneSetup, siteLanguage) {
     const message = form.elements.message.value;
     const model = clean(form.elements.model.value, 160);
-    const requestType = form.elements.request_type.value;
     const serviceType = form.elements.service_type.value;
+    const rushService = form.elements.rush_service.checked;
     const mailIn = serviceType === 'Mail-In';
     const mailingAddress = mailIn ? clean(form.elements.mailing_address.value, 300) : '';
     const unitNumber = mailIn ? clean(form.elements.unit_number.value, 30) : '';
@@ -192,8 +192,9 @@
       extra_fields: {
         phone_validation_profile: phoneSetup.profile(),
         console_model: model,
-        request_type: requestType,
         service_type: serviceType,
+        rush_service: rushService,
+        rush_fee: rushService ? 130 : undefined,
         mailing_address: mailingAddress || undefined,
         unit_number: unitNumber || undefined,
         province: province || undefined,

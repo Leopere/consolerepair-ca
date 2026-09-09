@@ -16,7 +16,7 @@ pages:
       primary:
         - "console repair"
       secondary:
-        - "re-thermals"
+        - "thermals"
         - "cleaning"
       min_density: 0.0
       max_density: 3.0
@@ -30,7 +30,7 @@ pages:
       primary:
         - "réparation de consoles"
       secondary:
-        - "repâte thermique"
+        - "entretien thermique"
         - "nettoyage"
       min_density: 0.0
       max_density: 4.0
@@ -44,7 +44,7 @@ pages:
       primary:
         - "reparación de consolas"
       secondary:
-        - "repaste térmico"
+        - "mantenimiento térmico"
         - "limpieza"
       min_density: 0.0
       max_density: 3.5
@@ -58,7 +58,7 @@ pages:
       primary:
         - "sửa máy chơi game"
       secondary:
-        - "keo tản nhiệt"
+        - "bảo dưỡng tản nhiệt"
         - "vệ sinh"
       min_density: 0.0
       max_density: 10.0
@@ -72,7 +72,7 @@ pages:
       primary:
         - "إصلاح أجهزة الألعاب"
       secondary:
-        - "المعجون الحراري"
+        - "الصيانة الحرارية"
         - "التنظيف"
       min_density: 0.0
       max_density: 10.0
@@ -86,7 +86,7 @@ pages:
       primary:
         - "ゲーム機修理"
       secondary:
-        - "グリス再塗布"
+        - "熱対策"
         - "清掃"
       min_density: 0.0
       max_density: 10.0
@@ -115,7 +115,7 @@ pages:
         - "Service Terms"
       secondary:
         - "repair request"
-        - "re-thermals"
+        - "thermals"
       min_density: 0.0
       max_density: 5.0
       min_occurrences: 1

@@ -165,21 +165,21 @@ def validate_site() -> None:
                     assert parsed.netloc in {"consolerepair.ca", "motherboardrepair.ca", "notomo.colinknapp.com"}
 
     english = (SITE / "index.html").read_text(encoding="utf-8").lower()
-    assert "mrc board-level console repair for playstation, xbox and nintendo switch" in english
+    assert "mrc console repair for playstation, xbox and nintendo switch" in english
     assert "console repair diagnosis and quote before work begins" in english
     assert "the intake assessment determines acceptance; it is not the repair diagnostic" in english
     assert "after the accepted console arrives, we perform a proper diagnostic and provide a quote" in english
     assert "no repair work begins without your approval" in english
     assert "displayed phone format" in english
     assert "detected country" not in english
-    assert "re-thermals and cleaning" in english
+    assert "cleaning and thermals" in english
     assert "from $90 + tax" in english
     assert "international clients are billed in usd" in english
     assert "not a repair diagnostic" in english
     assert "console certification" not in english
     assert " cad" not in english
     assert "priceCurrency" not in (SITE / "index.html").read_text(encoding="utf-8")
-    assert "laptop gpu repair and phone repair are outside this intake" in english
+    assert "laptop graphics-card and phone repairs need separate written acceptance" in english
     assert "nvidia · amd · intel" not in english
     assert "playstation · xbox · switch</small>" in english
     assert "country where the console is located and will be returned" in english
@@ -300,7 +300,7 @@ def validate_site() -> None:
             assert f'href="/#{fragment}"' in legal_source
 
     terms = (SITE / "terms" / "index.html").read_text(encoding="utf-8").lower()
-    assert "re-thermals and cleaning" in terms
+    assert "cleaning and thermals" in terms
     assert "is not a repair diagnostic" in terms
     assert "international clients are billed in usd" in terms
     assert "console certification" not in terms

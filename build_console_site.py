@@ -153,7 +153,7 @@ def render_index(locale: str) -> str:
                 "name": c["title"], "description": c["description"],
                 "provider": {"@id": f"{DOMAIN}/#organization"},
                 "areaServed": {"@type": "Country", "name": "Canada"},
-                "serviceType": "Board-level PlayStation, Xbox and Nintendo Switch repair",
+                "serviceType": "PlayStation, Xbox and Nintendo Switch repair",
                 "offers": {"@type": "Offer", "name": c["check_title"], "description": c["check_price"], "price": "90"},
             },
         ],
@@ -249,7 +249,7 @@ def render_legal(kind: str) -> str:
         body = """
         <h2>Request only</h2><p>Console Repair Canada is an MRC specialist site. Submitting the form sends a request for review; it does not reserve a time, authorize work or guarantee a repair. Canada is our main market. International mail-in service is available only for jobs MRC accepts. Do not mail a console until MRC provides shipping instructions.</p>
         <h2>International mail-in</h2><p>International customers must wait for job-specific customs-broker, carrier and return-cost instructions. The customer is responsible for shipping, customs, duties, taxes, brokerage, insurance and return costs. Service availability and permitted shipping routes depend on the origin country, console and carrier restrictions.</p>
-        <h2>Re-thermals and cleaning</h2><p>The advertised starting price of $90 plus tax covers one re-thermal and cleaning service on one supported PlayStation, Xbox or Nintendo Switch / handheld console after model acceptance. MRC opens the accepted console, cleans accessible dust and residue, and replaces the thermal interface materials it can reach on that model. Extra work, parts, shipping and tax are quoted separately. International clients are billed in USD. This service is not a repair diagnostic and does not promise lower temperatures, quieter fans, a resolved fault or the absence of latent faults. Do not mail a console until MRC accepts the request and provides shipping instructions.</p>
+        <h2>Cleaning and thermals</h2><p>The advertised starting price of $90 plus tax covers cleaning and thermals on one supported PlayStation, Xbox or Nintendo Switch / handheld console after model acceptance. MRC opens the accepted console, cleans accessible dust and residue, and replaces the thermal interface materials it can reach on that model. Extra work, parts, shipping and tax are quoted separately. International clients are billed in USD. This service is not a repair diagnostic and does not promise lower temperatures, quieter fans, a resolved fault or the absence of latent faults. Do not mail a console until MRC accepts the request and provides shipping instructions.</p>
         <h2>Repair assessment, diagnostic and quote</h2><p>The free intake assessment is only used to decide whether MRC will accept the job. It is not the repair diagnostic. After an accepted console arrives, MRC performs a proper diagnostic and provides a quote before any repair work begins. Repair work starts only after the customer approves that quote. Only the scope, price and other job-specific details MRC actually provides for that job apply.</p>
         """
     prefix = "../"

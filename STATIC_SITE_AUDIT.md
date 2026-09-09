@@ -16,7 +16,7 @@ python3 tests/test_console_site.py
 
 ## Intentional boundaries
 
-- The $50 CAD plus tax service is named Console Certification. It records factual observations about an accepted used PlayStation, Xbox or Nintendo Switch / handheld console. It is not a repair diagnostic, authenticity guarantee, performance guarantee, warranty or legal determination of fraud.
+- Re-thermals and cleaning start at $90 plus tax on an accepted PlayStation, Xbox or Nintendo Switch. Extra work is quoted separately. International clients are billed in USD. The public site does not claim CAD. This is not a repair diagnostic and does not promise temperatures, noise or a resolved fault.
 - Laptop GPU repair and phone repair are outside this intake.
 - Drop-offs are welcome whenever MRC is open; the site does not claim appointments are scheduled.
 - Notomo site ID 2 is never reused. The dedicated `consolerepair.ca` property uses full session replay, including literal form values.

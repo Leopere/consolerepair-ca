@@ -21,7 +21,7 @@ CONTACT_EMBED_SOURCE = SOURCE / "contact-embed"
 CONTACT_FALLBACK_SOURCE = SOURCE / "js/contact-form.min.js"
 LOCALE_ORDER = ("en", "fr", "es", "vi", "ar", "ja")
 HREFLANG = {"en": "en-CA", "fr": "fr-CA", "es": "es-419", "vi": "vi-VN", "ar": "ar", "ja": "ja-JP"}
-LEGAL_REVIEWED_DATE = "2026-08-22"
+LEGAL_REVIEWED_DATE = "2026-09-08"
 
 content_spec = importlib.util.spec_from_file_location("console_site_content", SOURCE / "content.py")
 if content_spec is None or content_spec.loader is None:
@@ -89,7 +89,7 @@ def header(content: dict[str, object], locale: str, asset_prefix: str | None = N
         <nav id="site-nav" aria-label="{esc(ui['primary'])}">
           <a href="{anchor_prefix}#faults">{esc(content['nav_faults'])}</a>
           <a href="{anchor_prefix}#process">{esc(content['nav_process'])}</a>
-          <a href="{anchor_prefix}#console-certification">{esc(content['nav_check'])}</a>
+          <a href="{anchor_prefix}#rethermals">{esc(content['nav_check'])}</a>
           <a class="button button-small" href="{anchor_prefix}#contact">{esc(content['nav_contact'])}</a>
         </nav>
       </div>
@@ -154,7 +154,7 @@ def render_index(locale: str) -> str:
                 "provider": {"@id": f"{DOMAIN}/#organization"},
                 "areaServed": {"@type": "Country", "name": "Canada"},
                 "serviceType": "Board-level PlayStation, Xbox and Nintendo Switch repair",
-                "offers": {"@type": "Offer", "name": "Console Certification", "price": "50", "priceCurrency": "CAD"},
+                "offers": {"@type": "Offer", "name": c["check_title"], "description": c["check_price"], "price": "90"},
             },
         ],
     }
@@ -192,7 +192,7 @@ def render_index(locale: str) -> str:
   <section class="section" id="faults"><div class="shell"><div class="section-heading"><p class="eyebrow">01 / {esc(c['nav_faults'])}</p><h2>{esc(c['faults_title'])}</h2><p>{esc(c['faults_intro'])}</p></div><div class="fault-grid">{fault_cards}</div></div></section>
   <section class="section section-dark"><div class="shell split"><div><p class="eyebrow">02 / {esc(c['scope_title'])}</p><h2>{esc(c['scope_title'])}</h2><p>{esc(c['scope_body'])}</p><ul class="check-list">{list_items(c['scope_items'])}</ul></div><div class="limit-card"><h3>{esc(c['limits_title'])}</h3><ul>{list_items(c['limits_items'])}</ul></div></div></section>
   <section class="section" id="process"><div class="shell"><div class="section-heading"><p class="eyebrow">03 / {esc(c['nav_process'])}</p><h2>{esc(c['process_title'])}</h2></div><ol class="steps">{steps}</ol></div></section>
-  <section class="section verification" id="console-certification"><div class="shell split"><div><p class="eyebrow">04 / {esc(c['nav_check'])}</p><h2>{esc(c['check_title'])}</h2><p>{esc(c['check_body'])}</p><ul class="check-list">{list_items(c['check_items'])}</ul></div><div class="price-card"><span>{esc(c['check_price'])}</span><small>{esc(c['hero_note'])}</small><a class="button" href="#contact">{esc(c['nav_check'])}</a></div></div></section>
+  <section class="section verification" id="rethermals"><div class="shell split"><div><p class="eyebrow">04 / {esc(c['nav_check'])}</p><h2>{esc(c['check_title'])}</h2><p>{esc(c['check_body'])}</p><ul class="check-list">{list_items(c['check_items'])}</ul></div><div class="price-card"><span>{esc(c['check_price'])}</span><small>{esc(c['check_note'])}</small><a class="button" href="#contact">{esc(c['nav_check'])}</a></div></div></section>
   <section class="section contact-section" id="contact"><div class="shell contact-grid"><div><p class="eyebrow">05 / {esc(c['nav_contact'])}</p><h2>{esc(c['contact_title'])}</h2><p>{esc(c['contact_intro'])}</p><div class="reply-card"><h3>{esc(c['reply_title'])}</h3><p>{esc(c['reply_body'])}</p></div></div>
     <form id="repair-form" class="repair-form" novalidate data-sending="{esc(c['sending'])}" data-success="{esc(c['success'])}" data-error="{esc(c['error'])}">
       <input type="hidden" name="form_id" value="console_repair_quote"><input type="hidden" name="start_time" value="">
@@ -204,7 +204,7 @@ def render_index(locale: str) -> str:
         <label>{esc(c['model'])}<input name="model" type="text" maxlength="160" required aria-describedby="model-hint"><small id="model-hint" class="form-hint">{esc(f['model_hint'])}</small></label>
       </fieldset>
       <fieldset><legend>{esc(f['request_details'])}</legend>
-        <label>{esc(c['service'])}<select name="request_type" required><option value="">{esc(f['choose'])}</option><option value="repair">{esc(c['repair'])}</option><option value="verification">{esc(c['verify'])}</option></select></label>
+        <label>{esc(c['service'])}<select name="request_type" required><option value="">{esc(f['choose'])}</option><option value="repair">{esc(c['repair'])}</option><option value="rethermal">{esc(c['verify'])}</option></select></label>
         <label>{esc(f['request_prompt'])}<textarea name="message" rows="6" minlength="20" maxlength="900" required aria-describedby="request-hint"></textarea><small id="request-hint" class="form-hint">{esc(f['request_hint'])}</small></label>
       </fieldset>
       <fieldset><legend>{esc(f['intake'])}</legend>
@@ -249,7 +249,7 @@ def render_legal(kind: str) -> str:
         body = """
         <h2>Request only</h2><p>Console Repair Canada is an MRC specialist site. Submitting the form sends a request for review; it does not reserve a time, authorize work or guarantee a repair. Canada is our main market. International mail-in service is available only for jobs MRC accepts. Do not mail a console until MRC provides shipping instructions.</p>
         <h2>International mail-in</h2><p>International customers must wait for job-specific customs-broker, carrier and return-cost instructions. The customer is responsible for shipping, customs, duties, taxes, brokerage, insurance and return costs. Service availability and permitted shipping routes depend on the origin country, console and carrier restrictions.</p>
-        <h2>Console Certification</h2><p>The advertised $50 CAD plus tax covers one Console Certification on one supported used PlayStation, Xbox or Nintendo Switch / handheld console after model acceptance. MRC compares the console with its listing and expected reference configuration and records factual observations about its identifiers, model, required chip population, board and other required assemblies. This can reveal missing, substituted or changed chips and other discrepancies found in deceptive marketplace or aftermarket sales. MRC also attempts to boot the console on the shop testing rig; if it boots, the customer receives a written test report describing the checks completed and observed results. Console Certification reports only facts observed on the inspected console. It does not state that the console meets OEM standards and is not a repair diagnostic, authenticity guarantee, performance guarantee, warranty or proof that no latent fault exists. MRC does not determine seller intent, ownership or make legal findings of fraud. Shipping, repair and parts are extra, and the fee is non-refundable once certification begins.</p>
+        <h2>Re-thermals and cleaning</h2><p>The advertised starting price of $90 plus tax covers one re-thermal and cleaning service on one supported PlayStation, Xbox or Nintendo Switch / handheld console after model acceptance. MRC opens the accepted console, cleans accessible dust and residue, and replaces the thermal interface materials it can reach on that model. Extra work, parts, shipping and tax are quoted separately. International clients are billed in USD. This service is not a repair diagnostic and does not promise lower temperatures, quieter fans, a resolved fault or the absence of latent faults. Do not mail a console until MRC accepts the request and provides shipping instructions.</p>
         <h2>Repair assessment, diagnostic and quote</h2><p>The free intake assessment is only used to decide whether MRC will accept the job. It is not the repair diagnostic. After an accepted console arrives, MRC performs a proper diagnostic and provides a quote before any repair work begins. Repair work starts only after the customer approves that quote. Only the scope, price and other job-specific details MRC actually provides for that job apply.</p>
         """
     prefix = "../"

@@ -16,8 +16,8 @@ pages:
       primary:
         - "console repair"
       secondary:
-        - "Console Certification"
-        - "used console"
+        - "re-thermals"
+        - "cleaning"
       min_density: 0.0
       max_density: 3.0
       min_occurrences: 1
@@ -30,8 +30,8 @@ pages:
       primary:
         - "réparation de consoles"
       secondary:
-        - "Console Certification"
-        - "console d’occasion"
+        - "repâte thermique"
+        - "nettoyage"
       min_density: 0.0
       max_density: 4.0
       min_occurrences: 1
@@ -44,8 +44,8 @@ pages:
       primary:
         - "reparación de consolas"
       secondary:
-        - "Console Certification"
-        - "consolas usadas"
+        - "repaste térmico"
+        - "limpieza"
       min_density: 0.0
       max_density: 3.5
       min_occurrences: 1
@@ -58,8 +58,8 @@ pages:
       primary:
         - "sửa máy chơi game"
       secondary:
-        - "Console Certification"
-        - "máy đã qua sử dụng"
+        - "keo tản nhiệt"
+        - "vệ sinh"
       min_density: 0.0
       max_density: 10.0
       min_occurrences: 1
@@ -72,8 +72,8 @@ pages:
       primary:
         - "إصلاح أجهزة الألعاب"
       secondary:
-        - "Console Certification"
-        - "الأجهزة المستعملة"
+        - "المعجون الحراري"
+        - "التنظيف"
       min_density: 0.0
       max_density: 10.0
       min_occurrences: 1
@@ -86,8 +86,8 @@ pages:
       primary:
         - "ゲーム機修理"
       secondary:
-        - "Console Certification"
-        - "中古ゲーム機"
+        - "グリス再塗布"
+        - "清掃"
       min_density: 0.0
       max_density: 10.0
       min_occurrences: 1
@@ -115,7 +115,7 @@ pages:
         - "Service Terms"
       secondary:
         - "repair request"
-        - "Console Certification"
+        - "re-thermals"
       min_density: 0.0
       max_density: 5.0
       min_occurrences: 1

@@ -51,6 +51,9 @@ def validate_site() -> None:
     assert actual_pages == expected_pages, f"Unexpected production pages: {sorted(actual_pages ^ expected_pages)}"
 
     public_copy = "\n".join(path.read_text(encoding="utf-8").lower() for path in SITE.rglob("*.html"))
+    assert "console certification" not in public_copy
+    assert "pricecurrency" not in public_copy
+    assert not re.search(r"(?<![a-z])cad(?![a-z])", public_copy)
     for unsupported_scheduling_claim in (
         "scheduled drop-off",
         "scheduled kitchener",
@@ -79,9 +82,9 @@ def validate_site() -> None:
         html_tags = [attrs for name, attrs in parser.tags if name == "html"]
         assert html_tags and html_tags[0].get("lang") == tag
         assert len([1 for name, _attrs in parser.tags if name == "h1"]) == 1
-        assert {"faults", "process", "console-certification", "contact", "repair-form", "form-status"} <= parser.ids
+        assert {"faults", "process", "rethermals", "contact", "repair-form", "form-status"} <= parser.ids
         text = " ".join(parser.text).lower()
-        for required in ("mrc", "console", "50"):
+        for required in ("mrc", "console", "90"):
             assert required in text, f"{path} is missing {required}"
         assert "session replay" not in source.lower()
         assert source.count('src="https://notomo.colinknapp.com/n.js"') == 1
@@ -143,7 +146,7 @@ def validate_site() -> None:
         assert 'href="/terms/" target="_blank" rel="noopener"' in source
         assert all(attrs.get("type") for name, attrs in parser.tags if name == "input")
         assert 'srcset="' in source and "console-repair-480.webp 480w" in source and "console-repair-720.webp 720w" in source
-        for fragment in ("faults", "process", "console-certification", "contact"):
+        for fragment in ("faults", "process", "rethermals", "contact"):
             assert f'href="#{fragment}"' in source
         assert "https://motherboardrepair.ca/" in source
         assert source.count('rel="alternate" hreflang=') == 7
@@ -169,14 +172,13 @@ def validate_site() -> None:
     assert "no repair work begins without your approval" in english
     assert "displayed phone format" in english
     assert "detected country" not in english
-    assert "console certification" in english
+    assert "re-thermals and cleaning" in english
+    assert "from $90 + tax" in english
+    assert "international clients are billed in usd" in english
     assert "not a repair diagnostic" in english
-    assert "missing, substituted or changed chips" in english
-    assert "deceptive online sales" in english
-    assert "does not state that the console meets oem standards" in english
-    assert "required chip population" in english
-    assert "shop testing rig" in english
-    assert "written shop-rig test report" in english
+    assert "console certification" not in english
+    assert " cad" not in english
+    assert "priceCurrency" not in (SITE / "index.html").read_text(encoding="utf-8")
     assert "laptop gpu repair and phone repair are outside this intake" in english
     assert "nvidia · amd · intel" not in english
     assert "playstation · xbox · switch</small>" in english
@@ -283,26 +285,26 @@ def validate_site() -> None:
     css = (SITE / "assets/style.css").read_text(encoding="utf-8")
     assert ".form-row { display: grid; grid-template-columns: 1fr 1fr; align-items: start;" in css
     assert '.repair-form input:not([type="checkbox"]), .repair-form select { min-height: 48px; }' in css
-    assert "#faults, #process, #console-certification, #contact { scroll-margin-block-start: 7rem; }" in css
+    assert "#faults, #process, #rethermals, #contact { scroll-margin-block-start: 7rem; }" in css
     assert "@keyframes repair-prompt-shimmer" in css
 
     for legal_kind in ("privacy", "terms"):
         legal_parser, legal_source = parse(SITE / legal_kind / "index.html")
         legal_canonical = [attrs.get("href") for name, attrs in legal_parser.tags if name == "link" and attrs.get("rel") == "canonical"]
         assert legal_canonical == [f"https://consolerepair.ca/{legal_kind}/"]
-        assert "MRC · Updated 2026-08-22" in legal_source
+        assert "MRC · Updated 2026-09-08" in legal_source
         assert f'href="/{legal_kind}/"' in legal_source
         assert 'href="../assets/style.css"' in legal_source
         assert 'src="../assets/mrc-logo-white.svg"' in legal_source
-        for fragment in ("faults", "process", "console-certification", "contact"):
+        for fragment in ("faults", "process", "rethermals", "contact"):
             assert f'href="/#{fragment}"' in legal_source
 
     terms = (SITE / "terms" / "index.html").read_text(encoding="utf-8").lower()
+    assert "re-thermals and cleaning" in terms
     assert "is not a repair diagnostic" in terms
-    assert "missing, substituted or changed chips" in terms
-    assert "does not state that the console meets oem standards" in terms
-    assert "written test report" in terms
-    assert "shop testing rig" in terms
+    assert "international clients are billed in usd" in terms
+    assert "console certification" not in terms
+    assert " cad" not in terms
     assert "canada is our main market" in terms
     assert "international mail-in service is available only for jobs mrc accepts" in terms
     assert "shipping, customs, duties, taxes, brokerage, insurance and return costs" in terms
@@ -316,7 +318,7 @@ def validate_site() -> None:
     assert 'src="/assets/site.js"' in not_found
     assert 'src="/assets/mrc-logo.svg"' in not_found
     assert 'src="/assets/mrc-logo-white.svg"' in not_found
-    for fragment in ("faults", "process", "console-certification", "contact"):
+    for fragment in ("faults", "process", "rethermals", "contact"):
         assert f'href="/#{fragment}"' in not_found
     assert "Information we collect" not in not_found
     assert not_found.count('src="https://notomo.colinknapp.com/n.js"') == 1
